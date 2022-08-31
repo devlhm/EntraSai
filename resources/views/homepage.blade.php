@@ -27,7 +27,7 @@
             <div class="h-1/2 lg:w-1/2 lg:h-full">
                   <div class="flex w-full h-full">
                       <div class="w-11/12 h-fit m-auto text-lg font-semibold">
-                        <h2 class="text-center">Olá, Usuário!</h2>
+                        <h2 class="text-center">Olá, {{Auth::user()->full_name}}!</h2>
                         <h1 class="mb-4 text-center text-3xl font-bold">Escolha uma das opções disponíveis no menu <span class="lg:hidden">abaixo</span><span class="hidden lg:inline">ao lado</span></h1>
                         <p class="text-slate-500">
                             As ações são exibidas de acordo com o seu nível de acesso. Para ter acesso a mais ações, converse com o administrador.<br>
