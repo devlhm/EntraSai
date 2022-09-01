@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'login')->name('login')->middleware('auth');
 Route::view('/home', 'homepage')->name('home')->middleware('auth');
-Route::view('/register', 'register');
+Route::view('/register', 'register')->middleware('auth');
 
 Route::post('/auth', [UserController::class, 'login'])->name('auth');
 Route::post('/user/create', [UserController::class, 'create'])->name('user.create');

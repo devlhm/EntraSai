@@ -22,11 +22,13 @@ class UserAuth
         $routeName = $request->route()->getName();
         $loggedIn = Auth::check();
 
+        
         // dd($loggedIn, $routeName);
-
+        
         if ($loggedIn && $routeName == "login") {
             return redirect('/home', 307);
         } else if (!$loggedIn && $routeName != "login") {
+            session(['url.intended' => $request->fullUrl().'/'.$routeName]);
             return redirect('/', 307);
         }
 
