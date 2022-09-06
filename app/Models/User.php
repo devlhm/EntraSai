@@ -25,4 +25,7 @@ class User extends Authenticatable
         'role_id',
         'id'
     ];
+
+    public $incrementing = false;
+    protected $keyType = 'integer';
 }
