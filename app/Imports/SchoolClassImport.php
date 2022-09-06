@@ -3,22 +3,28 @@
 namespace App\Imports;
 
 use App\Models\SchoolClass;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Row;
+use Maatwebsite\Excel\Concerns\OnEachRow;
 
-class SchoolClassImport implements ToModel
+class SchoolClassImport implements OnEachRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
-    {
-        return new SchoolClass([
-            'habilitation' => $row['habilitation'],
-            'period' => $row['period'],
-            'start_year' => $row['start_year'],
-            'module' => $row['module']
-        ]);
+
+    public function onRow(Row $row) {
+
     }
+
+    // public function model(array $row)
+    // {
+    //     return new SchoolClass([
+    //         'habilitation' => $row['habilitation'],
+    //         'period' => $row['period'],
+    //         'start_year' => $row['start_year'],
+    //         'module' => $row['module']
+    //     ]);
+    // }
 }

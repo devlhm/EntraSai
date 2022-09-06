@@ -6,20 +6,40 @@ use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StudentsImport implements ToModel
+
+class StudentsImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    /**
+    * @param int $class_Id
+    *
+    * @return void
+    */
+    public function __construct($class_id)
+    {
+        $this->class_id = $class_id;
+    }
+    
+    public $class_id;
+
     public function model(array $row) {
+
         return new Student([
-            'name' => $row['name'],
+            'name' => $row['nome'],
             'rm' => $row['rm'],
-            'group' => $row['group'],
-            'class_id' => $row['class_id']
+            'group' => $row['grupo'],
+            'class_id' => $this->class_id
         ]);
+    }
+
+    public function headingRow() : int {
+        return 4;
     }
 }
