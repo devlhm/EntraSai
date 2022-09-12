@@ -40,6 +40,18 @@ class StudentController extends Controller
 
     private function getsetStudentSchoolClass($file) {
         $spreadsheet = IOFactory::load($file);
-        dd($spreadsheet->getActiveSheet()->getCell('A2')->getValue());
+        $dataString = $spreadsheet->getActiveSheet()->getCell('A2')->getValue();
+        $dataString = str_replace("Componente Curricular: ", "", $dataString);
+        $habilitation = extractFromString("Habilitação", $dataString);
+    }
+
+    /** 
+     * @param string $key
+     * @param string $subject
+     * @return string $extractedValue
+    */
+    private function extractFromString($key, $string) {
+        preg_match('/'.$key.': ([\w\s-]+)\s/', $string, $matches);
+        dd($matches[1]);
     }
 }
