@@ -4,54 +4,58 @@
 namespace App\Http\Controllers;
 
 use App\Imports\StudentsImport;
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class StudentController extends Controller
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
-    public function upload(Request $request) {
-        // dd($request->file);
-
-        
+    public function upload(Request $request)
+    {
         $file = $request->file;
 
-        // $this->getStudentSchoolClass($file);
-
-        // Excel::toArray($file)
-
-        $studentSchoolClass = $this->getsetStudentSchoolClass($file);
-
-        // dd(Excel::toArray($file, ));
-
-        $importer = new StudentsImport(0);
+        $studentSchoolClass = $this->firstOrCreateSchoolClass($file);
+        
+        $importer = new StudentsImport($studentSchoolClass->id);
 
         Excel::import($importer, $file);
 
-        // return back();
+        return back()->with(['success' => 'Alunos importados com sucesso!']);
     }
 
-    /** 
-     * @param mixed $file
-     * @return string $class
-    */
-
-    private function getsetStudentSchoolClass($file) {
+    private function firstOrCreateSchoolClass($file)
+    {
         $spreadsheet = IOFactory::load($file);
         $dataString = $spreadsheet->getActiveSheet()->getCell('A2')->getValue();
         $dataString = str_replace("Componente Curricular: ", "", $dataString);
-        $habilitation = extractFromString("Habilitação", $dataString);
+        $habilitation = $this->extractFromString("Habilitação", $dataString);
+        $period = $this->extractFromString("Turma", $dataString);
+        $startYear = $this->extractFromString("Ano", $dataString);
+        $module = substr($this->extractFromString("Módulo\/Série", $dataString), 0, 1);
+
+        return SchoolClass::firstOrCreate(
+            [
+                'habilitation' => $habilitation,
+                'period' => $period,
+                'start_year' => $startYear,
+                'module' => $module
+            ]
+        );
     }
 
     /** 
      * @param string $key
      * @param string $subject
      * @return string $extractedValue
-    */
-    private function extractFromString($key, $string) {
-        preg_match('/'.$key.': ([\w\s-]+)\s/', $string, $matches);
-        dd($matches[1]);
+     */
+    private function extractFromString($key, $string)
+    {
+        preg_match('/' . $key . ': ([\w\s-]+)\s/', $string, $matches);
+        return $matches[1];
     }
 }

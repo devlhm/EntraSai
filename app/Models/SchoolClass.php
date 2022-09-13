@@ -10,6 +10,8 @@ class SchoolClass extends Model
 
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'habilitation',
         'period',
@@ -17,5 +19,5 @@ class SchoolClass extends Model
         'module'
     ];
 
-    protected $table='classes';
+    protected $table='school_classes';
 }

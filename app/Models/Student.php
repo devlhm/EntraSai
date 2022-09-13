@@ -9,10 +9,13 @@ class Student extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'rm',
         'name',
-        'group'
+        'group',
+        'school_class_id'
     ];
 
     public $incrementing = false;

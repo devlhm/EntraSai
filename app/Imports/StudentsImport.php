@@ -31,12 +31,16 @@ class StudentsImport implements ToModel, WithHeadingRow
 
     public function model(array $row) {
 
-        return new Student([
-            'name' => $row['nome'],
-            'rm' => $row['rm'],
-            'group' => $row['grupo'],
-            'class_id' => $this->class_id
-        ]);
+        // dd($this->class_id);
+
+        Student::findOr($row['rm'], function () use ($row) {
+            return new Student([
+                'name' => $row['nome'],
+                'rm' => $row['rm'],
+                'group' => $row['grupo'],
+                'school_class_id' => $this->class_id
+            ]);
+        });
     }
 
     public function headingRow() : int {

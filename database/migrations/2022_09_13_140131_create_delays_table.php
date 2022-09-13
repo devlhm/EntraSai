@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('delays', function (Blueprint $table) {
             $table->id();
-            $table->string('habilitation');
-            $table->string('period');
-            $table->integer('start_year');
-            $table->integer('module');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('delays');
     }
 };

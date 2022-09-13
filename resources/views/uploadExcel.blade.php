@@ -11,9 +11,13 @@
 <body>
     <form method=POST action="{{ route('file.upload.studentSpreadsheet') }}" enctype="multipart/form-data">
         @csrf
-        <input type="file" accept=".xlsx" name="file" required/><br/>
-        <input type="submit"/>
+        <input type="file" accept=".xlsx" name="file" required /><br />
+        <input type="submit" />
     </form>
+
+    @if(session()->has('message'))
+        {{session('success')}}
+    @endif
 </body>
 
 </html>
