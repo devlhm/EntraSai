@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('homepage');
 });
+
+Route::get('/late', function() {
+    return view('functions/late');
+});
