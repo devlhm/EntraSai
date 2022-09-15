@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('delays', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger("student_rm");
+            $table->dateTime("arrival_time");
+            $table->string("reason");
         });
     }
 

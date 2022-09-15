@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DelayController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Delay;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +26,7 @@ Route::view('/excel', 'uploadExcel');
 
 Route::post('/auth', [UserController::class, 'login'])->name('auth');
 Route::post('/user/create', [UserController::class, 'create'])->name('user.create');
+
+Route::resource('delays', DelayController::class);
 
 Route::post('/file/student_spreadsheet', [StudentController::class, 'upload'])->name("file.upload.studentSpreadsheet");
