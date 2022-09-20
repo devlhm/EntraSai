@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Delay;
+use DateTime;
 use Illuminate\Http\Request;
 
 class DelayController extends Controller
@@ -14,7 +15,9 @@ class DelayController extends Controller
      */
     public function index()
     {
-        //
+        $delays = Delay::orderBy('arrival_time', 'desc')->get();
+        // dd(compact('delays'));
+        return view('delays.index', compact('delays'));
     }
 
     /**
@@ -36,7 +39,7 @@ class DelayController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rm' => 'required',
+            'student_rm' => 'required',
             'arrival_time' => 'required',
             'reason' => 'required'
         ]);
