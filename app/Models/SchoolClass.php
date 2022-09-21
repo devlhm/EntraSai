@@ -20,4 +20,8 @@ class SchoolClass extends Model
     ];
 
     protected $table='school_classes';
+
+    public function students() {
+        return $this->hasMany(Student::class);
+    }
 }

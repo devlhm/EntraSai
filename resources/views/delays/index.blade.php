@@ -26,6 +26,8 @@
             <thead>
                 <tr>
                     <th>RM do Aluno</th>
+                    <th>Nome do Aluno</th>
+                    <th>Turma</th>
                     <th>Horário de Chegada</th>
                     <th>Razão</th>
                     <th width="280px">Action</th>
@@ -35,6 +37,8 @@
                 @foreach ($delays as $delay)
                     <tr>
                         <td>{{ $delay->student_rm }}</td>
+                        <td>{{ $delay->student->name}}</td>
+                        <td>{{ $delay->student->schoolClass->module." ".$delay->student->schoolClass->habilitation." ".$delay->student->schoolClass->period}}</td>
                         <td>{{ $delay->arrival_time }}</td>
                         <td>{{ $delay->reason }}</td>
                         <td>

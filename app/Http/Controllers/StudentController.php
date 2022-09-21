@@ -20,7 +20,7 @@ class StudentController extends Controller
         $file = $request->file;
 
         $studentSchoolClass = $this->firstOrCreateSchoolClass($file);
-        
+
         $importer = new StudentsImport($studentSchoolClass->id);
 
         Excel::import($importer, $file);

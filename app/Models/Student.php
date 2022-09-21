@@ -18,6 +18,14 @@ class Student extends Model
         'school_class_id'
     ];
 
+    public function schoolClass() {
+        return $this->belongsTo(SchoolClass::class);
+    }
+
+    public function delays() {
+        return $this->belongsToMany(Delay::class);
+    }
+
     public $incrementing = false;
     protected $primaryKey = 'rm';
     protected $keyType = "integer";

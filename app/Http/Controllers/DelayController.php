@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Delay;
+use App\Models\Student;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,6 @@ class DelayController extends Controller
     public function index()
     {
         $delays = Delay::orderBy('arrival_time', 'desc')->get();
-        // dd(compact('delays'));
         return view('delays.index', compact('delays'));
     }
 
@@ -44,8 +44,21 @@ class DelayController extends Controller
             'reason' => 'required'
         ]);
 
+        if(!Student::find($request->student_rm)) {
+            return back()->withErrors([
+                "student_rm" => "RM inválido!"
+            ]);
+        }
+
+        $arrivalTime = new DateTime($request->arrival_time);
+        if(isDatetimeFuture($arrivalTime)) {
+            return back()->withErrors([
+                "arrival_time" => "Data inválida!"
+            ]);
+        }
+
         Delay::create($request->all());
-        return redirect()->route('products.index')->with('success', 'Atraso registrado com sucesso!');
+        return redirect()->route('delays.index')->with('success', 'Atraso registrado com sucesso!');
     }
 
     /**

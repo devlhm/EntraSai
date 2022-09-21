@@ -15,7 +15,7 @@
         <input type="submit" />
     </form>
 
-    @if(session()->has('message'))
+    @if(session()->has('success'))
         {{session('success')}}
     @endif
 </body>

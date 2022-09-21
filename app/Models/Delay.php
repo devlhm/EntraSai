@@ -19,8 +19,9 @@ class Delay extends Model
         'reason'
     ];
 
-    public function student() {
-        return $this->belongsToMany(Student::class);
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_rm');
     }
 
     protected function arrivalTime(): Attribute
@@ -28,6 +29,5 @@ class Delay extends Model
         return Attribute::make(
             get: fn ($value) => date_format(date_create($value), 'd/m/Y H:i:s'),
         );
-
     }
 }

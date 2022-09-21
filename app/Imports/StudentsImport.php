@@ -12,28 +12,26 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class StudentsImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
 
     /**
-    * @param int $class_Id
-    *
-    * @return void
-    */
+     * @param int $class_Id
+     *
+     * @return void
+     */
     public function __construct($class_id)
     {
         $this->class_id = $class_id;
     }
-    
+
     public $class_id;
 
-    public function model(array $row) {
-
-        // dd($this->class_id);
-
-        Student::findOr($row['rm'], function () use ($row) {
+    public function model(array $row)
+    {
+        return Student::findOr($row['rm'], function () use ($row) {
             return new Student([
                 'name' => $row['nome'],
                 'rm' => $row['rm'],
@@ -43,7 +41,8 @@ class StudentsImport implements ToModel, WithHeadingRow
         });
     }
 
-    public function headingRow() : int {
+    public function headingRow(): int
+    {
         return 4;
     }
 }
