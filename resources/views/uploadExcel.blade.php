@@ -9,14 +9,20 @@
 </head>
 
 <body>
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+
     <form method=POST action="{{ route('file.upload.studentSpreadsheet') }}" enctype="multipart/form-data">
         @csrf
         <input type="file" accept=".xlsx" name="file" required /><br />
         <input type="submit" />
     </form>
 
-    @if(session()->has('success'))
-        {{session('success')}}
+    @if (session()->has('success'))
+        {{ session('success') }}
     @endif
 </body>
 

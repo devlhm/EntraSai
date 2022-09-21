@@ -26,6 +26,9 @@
 
         <label for="reason">Motivo do atraso: </label>
         <input type="text" name="reason" id="reason" />
+        @error('reason')
+            {{$message}}
+        @enderror
         <br />
 
         <input type="submit" value="Enviar">

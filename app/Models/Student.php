@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     public $timestamps = false;
 
@@ -16,6 +17,10 @@ class Student extends Model
         'name',
         'group',
         'school_class_id'
+    ];
+
+    public $sortable = [
+        'name'
     ];
 
     public function schoolClass() {
