@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Imports\StudentsImport;
 use App\Models\SchoolClass;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -15,12 +17,70 @@ class StudentController extends Controller
     {
     }
 
+    public function index()
+    {
+        $students = Student::sortable()->orderBy('name')->paginate(10);
+        return view('students.index', compact('students'));
+    }
+
+    public function create()
+    {
+        $schoolClasses = SchoolClass::all();
+        return view('students.create', compact('schoolClasses'));
+
+
+    }
+
+    public function store(Request $request)
+    {
+        $schoolClasses = SchoolClass::all();
+        $schoolClassesIds = array();
+
+        foreach($schoolClasses as $schoolClass) {
+            array_push($schoolClassesIds, $schoolClass->id);
+        }
+
+        $request->validate([
+            "name" => ["required", "string"],
+            "school_class_id" => ["required"],
+            "group" => ["required", Rule::in('GRUPO A', 'GRUPO B')]
+        ]);
+
+        if (!SchoolClass::find($request->school_class_id)) {
+            return back()->withErrors([
+                "school_class_id" => "Turma não encontrada!"
+            ]);
+        }
+
+        Student::create($request->all());
+
+        return redirect(route('students.index'))->with('success', 'Aluno cadastrado com sucesso!');
+    }
+
+    public function edit($id)
+    {
+    }
+
+    public function update()
+    {
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Student::destroy($id);
+        return back()->with('success', 'Aluno removido com sucesso!');
+    }
+
     public function upload(Request $request)
     {
         $file = $request->file;
-
         $studentSchoolClass = $this->firstOrCreateSchoolClass($file);
-
         $importer = new StudentsImport($studentSchoolClass->id);
 
         Excel::import($importer, $file);

@@ -12,15 +12,15 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Atrasos</h2>
+                    <h2>Alunos</h2>
                 </div>
                 <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('delays.create') }}">Registrar Atraso</a>
+                    <a class="btn btn-success" href="{{ route('students.create') }}">Cadastrar Aluno</a>
                 </div>
             </div>
         </div>
         <div class="row">
-            <form class="form-inline" method="GET">
+            {{-- <form class="form-inline" method="GET">
                 <div class="form-group mb-2">
                     <label for="filter" class="col-sm-2 col-form-label">Filtro:</label>
                     <input type="text" class="form-control" id="filter" name="filter"
@@ -28,8 +28,7 @@
 
                     <input type="submit" value="Pesquisar" class="btn btn-primary">
                 </div>
-            </form>
-
+            </form> --}}
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -38,26 +37,24 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>RM do Aluno</th>
-                        <th>@sortablelink('student.name', 'Nome do Aluno')</th>
+                        <th>RM</th>
+                        <th>@sortablelink('name', 'Nome')</th>
                         <th>Turma</th>
-                        <th>@sortablelink('arrival_time', 'Horário de Chegada')</th>
-                        <th>Motivo do atraso</th>
+                        <th>Grupo</th>
                         <th width="280px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($delays as $delay)
+                    @foreach ($students as $student)
                         <tr>
-                            <td>{{ $delay->student_rm }}</td>
-                            <td>{{ $delay->student->name }}</td>
-                            <td>{{ $delay->student->schoolClass->module . ' ' . $delay->student->schoolClass->habilitation . ' ' . $delay->student->schoolClass->period }}
+                            <td>{{ $student->rm }}</td>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->schoolClass->module . ' ' . $student->schoolClass->habilitation . ' ' . $student->schoolClass->period }}
                             </td>
-                            <td>{{ $delay->arrival_time }}</td>
-                            <td>{{ $delay->reason }}</td>
+                            <td>{{ $student->group }}</td>
                             <td>
-                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST">
-                                    <a class="btn btn-primary" href="{{ route('delays.edit', $delay->id) }}">Edit</a>
+                                <form action="{{ route('students.destroy', $student) }}" method="POST">
+                                    <a class="btn btn-primary" href="{{ route('students.edit', $student) }}">Edit</a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -69,7 +66,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                {!! $delays->appends(Request::except('page'))->render() !!}
+                {!! $students->appends(Request::except('page'))->render() !!}
             </div>
         </div>
 </body>

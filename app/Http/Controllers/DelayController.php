@@ -19,14 +19,13 @@ class DelayController extends Controller
         $filter = request()->query('filter');
         $delays = '';
 
-        if(!empty($filter)) {
+        if (!empty($filter)) {
 
             $delays = Delay::whereHas('student', function ($q) use ($filter) {
-                $q->where('name', 'like', '%'.$filter.'%');
-            })->get();
-
+                $q->where('name', 'like', '%' . $filter . '%');
+            })->paginate(10);
         } else {
-            $delays = Delay::sortable()->paginate(5);
+            $delays = Delay::sortable()->paginate(10);
         }
 
         return view('delays.index', compact('delays'))->with('filter', $filter);
