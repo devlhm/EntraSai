@@ -27,8 +27,6 @@ class StudentController extends Controller
     {
         $schoolClasses = SchoolClass::all();
         return view('students.create', compact('schoolClasses'));
-
-
     }
 
     public function store(Request $request)
@@ -36,7 +34,7 @@ class StudentController extends Controller
         $schoolClasses = SchoolClass::all();
         $schoolClassesIds = array();
 
-        foreach($schoolClasses as $schoolClass) {
+        foreach ($schoolClasses as $schoolClass) {
             array_push($schoolClassesIds, $schoolClass->id);
         }
 
@@ -57,23 +55,37 @@ class StudentController extends Controller
         return redirect(route('students.index'))->with('success', 'Aluno cadastrado com sucesso!');
     }
 
-    public function edit($id)
+    public function edit($student)
     {
+        $student = Student::find($student);
+        $schoolClasses = SchoolClass::all();
+
+        return view('students.edit', compact('student'), compact('schoolClasses'));
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            "name" => ["required", "string"],
+            "school_class_id" => ["required"],
+            "group" => ["required", Rule::in('GRUPO A', 'GRUPO B')]
+        ]);
+
+        if (!SchoolClass::find($request->school_class_id)) {
+            return back()->withErrors([
+                "school_class_id" => "Turma não encontrada!"
+            ]);
+        };
+
+        $student = Student::find($id);
+        $student->fill($request->all())->save();
+
+        return redirect()->route('students.index')->with('success', 'Aluno atualizado com sucesso');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy($student)
     {
-        Student::destroy($id);
+        Student::destroy($student->id);
         return back()->with('success', 'Aluno removido com sucesso!');
     }
 
