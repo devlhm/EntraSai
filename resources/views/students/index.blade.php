@@ -20,15 +20,24 @@
             </div>
         </div>
         <div class="row">
-            {{-- <form class="form-inline" method="GET">
+            <form class="form-inline" method="GET">
                 <div class="form-group mb-2">
                     <label for="filter" class="col-sm-2 col-form-label">Filtro:</label>
                     <input type="text" class="form-control" id="filter" name="filter"
                         placeholder="Nome do aluno..." value="{{ $filter }}">
 
-                    <input type="submit" value="Pesquisar" class="btn btn-primary">
+                    <input type="submit" value="Pesquisar" class="btn btn-primary m-2">
+
+                    <select name="schoolClassFilter" class="form-control"id="schoolClassFilter"
+                        onchange="this.form.submit()">
+                        @foreach ($schoolClasses as $schoolClass)
+                            <option value="{{ $schoolClass->id }}" @if ($schoolClassFilter == $schoolClass->id) selected @endif>
+                                {{ $schoolClass->module . ' ' . $schoolClass->habilitation . ' ' . $schoolClass->period }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-            </form> --}}
+            </form>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>

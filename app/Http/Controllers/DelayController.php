@@ -17,7 +17,7 @@ class DelayController extends Controller
     public function index()
     {
         $filter = request()->query('filter');
-        $delays = '';
+        $delays = null;
 
         if (!empty($filter)) {
 
@@ -26,7 +26,7 @@ class DelayController extends Controller
             })->paginate(10);
         } else {
             $delays = Delay::sortable()->paginate(10);
-        }
+        }   
 
         return view('delays.index', compact('delays'))->with('filter', $filter);
     }

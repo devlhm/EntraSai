@@ -52,21 +52,21 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Grupo:</strong>
-                        <select type="text" name="group" value="{{ $student->group }}" class="form-control">
-                            <option value="GRUPO A">GRUPO A</option>
-                            <option value="GRUPO B">GRUPO B</option>
+                        <select type="text" name="group" class="form-control">
+                            <option value="GRUPO A" @if ($student->group == 'GRUPO A') selected @endif>GRUPO A</option>
+                            <option value="GRUPO B" @if ($student->group == 'GRUPO B') selected @endif>GRUPO B</option>
                         </select>
                         @error('group')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <select name="school_class_id" id="school_class_id" value={{$student->school_class_id}}>
+                <select name="school_class_id" id="school_class_id">
                     @foreach ($schoolClasses as $schoolClass)
-                        <option value="{{ $schoolClass->id }}">
+                        <option value="{{ $schoolClass->id }}" @if ($student->school_class_id == $schoolClass->id) selected @endif>
                             {{ $schoolClass->module . ' ' . $schoolClass->habilitation . ' ' . $schoolClass->period }}
                         </option>
-                    @endforeach)
+                    @endforeach
                 </select>
                 <button type="submit" class="btn btn-primary ml-3">Submit</button>
             </div>
