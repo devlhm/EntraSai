@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departure;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class DepartureController extends Controller
@@ -13,7 +15,19 @@ class DepartureController extends Controller
      */
     public function index()
     {
-        //
+        $filter = request()->query('filter');
+        $delays = null;
+
+        if (!empty($filter)) {
+
+            $delays = Departure::whereHas('student', function ($q) use ($filter) {
+                $q->where('name', 'like', '%' . $filter . '%');
+            })->paginate(10);
+        } else {
+            $delays = Departure::sortable()->paginate(10);
+        }   
+
+        return view('departures.index', compact('departures'))->with('filter', $filter);
     }
 
     /**
@@ -23,7 +37,7 @@ class DepartureController extends Controller
      */
     public function create()
     {
-        //
+        return view('departures.create');
     }
 
     /**
@@ -34,18 +48,21 @@ class DepartureController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'student_rm' => 'required',
+            'departure_time' => ['required', 'after_or_equal:today'],
+            'reason' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        if (!Student::find($request->student_rm)) {
+            return back()->withErrors([
+                "student_rm" => "RM inválido!"
+            ]);
+        }
+
+        Departure::create($request->all());
+
+        return redirect()->route('departures.index')->with('success', 'Saída registrada com sucesso!');
     }
 
     /**
@@ -56,7 +73,8 @@ class DepartureController extends Controller
      */
     public function edit($id)
     {
-        //
+        $departure = Departure::find($id);
+        return view('departures.edit', compact('departure'));
     }
 
     /**
@@ -68,7 +86,22 @@ class DepartureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'student_rm' => 'required',
+            'departure_time' => ['required', 'after_or_equal:today'],
+            'reason' => 'required'
+        ]);
+
+        if (!Student::find($request->student_rm)) {
+            return back()->withErrors([
+                "student_rm" => "RM inválido!"
+            ]);
+        }
+
+        $delay = Departure::find($id);
+        $delay->fill($request->all())->save();
+
+        return redirect()->route('departures.index')->with('success', 'Saída atualizada com sucesso');
     }
 
     /**
@@ -79,6 +112,7 @@ class DepartureController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Departure::destroy($id);
+        return back()->with('success', 'Saída removida com sucesso!');
     }
 }
