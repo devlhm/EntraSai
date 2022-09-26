@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exits', function (Blueprint $table) {
+        Schema::create('entries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('student_rm');
+            $table->dateTime('estimated_entry_time');
+            $table->dateTime('entry_time')->nullable();
+            $table->string('reason');
+
+            $table->foreign('student_rm')->references('rm')->on('students');
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exits');
+        Schema::dropIfExists('entries');
     }
 };

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('delays', function (Blueprint $table) {
+        Schema::create('departures', function (Blueprint $table) {
             $table->id();
             $table->integer('student_rm');
-            $table->dateTime("arrival_time");
+            $table->dateTime("departure_time");
             $table->string("reason");
 
             $table->foreign('student_rm')->references('rm')->on('students');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('delays');
+        Schema::dropIfExists('departures');
     }
 };

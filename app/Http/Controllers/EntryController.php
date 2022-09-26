@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Delay;
+use App\Models\Entry;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
-class DelayController extends Controller
+class EntryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +16,17 @@ class DelayController extends Controller
     public function index()
     {
         $filter = request()->query('filter');
-        $delays = null;
+        $entries = null;
 
         if (!empty($filter)) {
-
-            $delays = Delay::whereHas('student', function ($q) use ($filter) {
+            $entries = Entry::whereHas('student', function ($q) use ($filter) {
                 $q->where('name', 'like', '%' . $filter . '%');
             })->paginate(10);
         } else {
-            $delays = Delay::sortable()->paginate(10);
-        }   
+            $entries = Entry::sortable()->paginate(10);
+        }
 
-        return view('delays.index', compact('delays'))->with('filter', $filter);
+        return view('entries.index', compact('entries'))->with('filter', $filter);
     }
 
     /**
@@ -37,7 +36,7 @@ class DelayController extends Controller
      */
     public function create()
     {
-        return view('delays.create');
+        return view('entries.create');
     }
 
     /**
@@ -50,7 +49,7 @@ class DelayController extends Controller
     {
         $request->validate([
             'student_rm' => 'required',
-            'arrival_time' => ['required', 'before_or_equal:today'],
+            'entry_time' => ['required', 'after_or_equal:today'],
             'reason' => 'required'
         ]);
 
@@ -60,9 +59,9 @@ class DelayController extends Controller
             ]);
         }
 
-        Delay::create($request->all());
+        Entry::create($request->all());
 
-        return redirect()->route('delays.index')->with('success', 'Atraso registrado com sucesso!');
+        return redirect()->route('entries.index')->with('success', 'Entrada registrada com sucesso!');
     }
 
     /**
@@ -73,8 +72,8 @@ class DelayController extends Controller
      */
     public function edit($id)
     {
-        $delay = Delay::find($id);
-        return view('delays.edit', compact('delay'));
+        $entry = Entry::find($id);
+        return view('entry.edit', compact('entry'));
     }
 
     /**
@@ -88,7 +87,7 @@ class DelayController extends Controller
     {
         $request->validate([
             'student_rm' => 'required',
-            'arrival_time' => ['required', 'before_or_equal:today'],
+            'entry_time' => ['required', 'after_or_equal:today'],
             'reason' => 'required'
         ]);
 
@@ -98,10 +97,10 @@ class DelayController extends Controller
             ]);
         }
 
-        $delay = Delay::find($id);
-        $delay->fill($request->all())->save();
+        $entry = Entry::find($id);
+        $entry->fill($request->all())->save();
 
-        return redirect()->route('delays.index')->with('success', 'Atraso atualizado com sucesso');
+        return redirect()->route('entries.index')->with('success', 'Entrada atualizada com sucesso');
     }
 
     /**
@@ -112,7 +111,7 @@ class DelayController extends Controller
      */
     public function destroy($id)
     {
-        Delay::destroy($id);
-        return back()->with('success', 'Atraso removido com sucesso!');
+        Entry::destroy($id);
+        return back()->with('success', 'Entrada removida com sucesso!');
     }
 }
