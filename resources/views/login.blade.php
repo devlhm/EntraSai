@@ -10,17 +10,27 @@
 </head>
 
 <body class="font-bold font-sans">
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-
     <div class="flex flex-col lg:flex-row w-screen h-screen">
         <div id="left-side" class="relative w-full lg:w-1/2 h-1/2 lg:h-screen bg-violet-400 shadow-lg lg:shadow-2xl shadow-slate-300">
+            @if ($errors->any())
+                <ul class="flex flex-col absolute w-full gap-y-1">
+                    @foreach ($errors->all() as $error)
+                        <li class="flex inset-x-12 px-3 py-1 gap-2 bg-violet-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none" stroke-width="2" stroke="currentColor" class="w-8 h-8 lg:w-12 lg:h-12 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                            </svg>
+                            <div class="my-auto text-white lg:text-xl">
+                                <p>{{ $error }}</p>
+                            </div>
+                            <button class="w-fit h-fit ml-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23" stroke-width="2" stroke="currentColor" class="w-8 h-8 lg:w-12 lg:h-12 text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m-15 0l15 15" />
+                                </svg>
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
             <span class="absolute inset-x-12 my-4 px-3 py-1 lg:px-5 lg:py-3 bg-violet-500 hidden">
                 <div class="flex gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none" stroke-width="2" stroke="currentColor" class="w-8 h-8 lg:w-12 lg:h-12 text-white">
