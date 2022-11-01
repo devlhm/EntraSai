@@ -26,6 +26,7 @@ Route::view('/excel', 'uploadExcel');
 
 
 Route::post('/auth', [UserController::class, 'login'])->name('auth');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/user/create', [UserController::class, 'create'])->name('user.create');
 
 Route::resource('delays', DelayController::class);

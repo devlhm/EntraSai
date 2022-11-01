@@ -45,4 +45,9 @@ class UserController extends Controller
         $user->save();
         return "User created";
     }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/');
+    }
 }
