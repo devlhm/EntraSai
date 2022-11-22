@@ -27,8 +27,8 @@ class UserController extends Controller
         }
 
         return back()->withErrors([
-            'id' => 'Credenciais incorretas',
-            'password' => 'Credenciais incorretas',
+            'id' => 'ID incorreto.',
+            'password' => 'Senha incorreta.',
         ]);
     }
 
