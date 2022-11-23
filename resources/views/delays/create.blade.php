@@ -22,7 +22,7 @@
             </a>
         </nav>
         <div class="w-full h-full relative">
-            <div class="absolute w-full h-full md:px-32 py-12">
+            <div class="absolute w-full h-full md:px-32 py-8 sm:12 md:py-16">
                 <div class="flex flex-col items-start w-full h-full py-8 bg-white shadow-2xl font-semibold">
                     <form action="{{route('delays.store')}}" method="post" class="w-5/6 h-full flex flex-col mx-auto my-auto">
                         @csrf
@@ -32,8 +32,8 @@
                             </svg>
                             <h1 class="w-fit mx-auto text-xl md:text-2xl">Registrar Atraso</h1>
                         </div>
-                        <div class="flex flex-col gap-y-12 font-normal">
-                            <div class="md:w-full flex flex-col md:flex-row gap-8 text-md md:text-lg">
+                        <div class="flex flex-col my-auto gap-y-12 md:gap-y-20 font-normal text-md md:text-lg">
+                            <div class="md:w-full flex flex-col md:flex-row gap-8">
                                 <div class="md:w-1/2 flex flex-col gap-y-10">
                                     <div class="relative flex flex-col">
                                         <label for="student_rm" class="font-semibold">RM: </label>

@@ -28,7 +28,7 @@
             <form class="flex flex-col gap-y-2 mt-5 w-fit font-semibold" method="GET">
                 <div>
                     <label for="filter" class="text-2xl">Filtro:</label>
-                    <input type="text" class="px-1 text-xl" id="filter" name="filter"
+                    <input type="text" class="px-1 text-xl text-black" id="filter" name="filter"
                         placeholder="Nome do aluno..." value="{{ $filter }}">
                 </div>
                 <input type="submit" value="Pesquisar" class="bg-emerald-400 text-xl">
@@ -40,31 +40,31 @@
             @endif
             <table class="w-full table-fixed mt-5 text-xl">
                 <thead>
-                    <tr class="bg-violet-500">
-                        <th>RM do Aluno</th>
-                        <th class="border-x-4 border-violet-400">@sortablelink('student.name', 'Nome do Aluno')</th>
-                        <th class="border-x-4 border-violet-400">Turma</th>
-                        <th class="border-x-4 border-violet-400">@sortablelink('arrival_time', 'Horário de Chegada')</th>
-                        <th class="border-x-4 border-violet-400">Motivo do atraso</th>
+                    <tr class="bg-violet-500 divide-x-4 divide-violet-400">
+                        <th class="hidden lg:block">RM do Aluno</th>
+                        <th>@sortablelink('student.name', 'Nome do Aluno')</th>
+                        <th class="hidden lg:block">Turma</th>
+                        <th>@sortablelink('arrival_time', 'Horário de Chegada')</th>
+                        <th>Motivo do atraso</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white">
+                <tbody>
                     @foreach ($delays as $delay)
-                        <tr>
-                            <td>{{ $delay->student_rm }}</td>
+                        <tr class="divide-x-4 divide-violet-400 font-semibold bg-white text-black text-center">
+                            <td class="hidden lg:block">{{ $delay->student_rm }}</td>
                             <td>{{ $delay->student->name }}</td>
-                            <td>{{ $delay->student->schoolClass->module . ' ' . $delay->student->schoolClass->habilitation . ' ' . $delay->student->schoolClass->period }}
+                            <td class="hidden lg:block">{{ $delay->student->schoolClass->module . ' ' . $delay->student->schoolClass->habilitation . ' ' . $delay->student->schoolClass->period }}
                             </td>
                             <td>{{ $delay->arrival_time }}</td>
                             <td>{{ $delay->reason }}</td>
                             <td>
-                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST">
-                                    <a class="btn btn-primary" href="{{ route('delays.edit', $delay->id) }}">Edit</a>
+                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST" class="relative w-full text-white">
+                                    <a class="absolute w-2/3 h-full px-4 border-b-[28px] border-r-[60px] border-b-0 border-emerald-400 border-r-transparent bg-trnasparent text-left" href="{{ route('delays.edit', $delay->id) }}">Edit</a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        onclick="return confirm('Você tem certeza?')"class="btn btn-danger">Delete</button>
+                                        onclick="return confirm('Você tem certeza?')"class="w-full px-4 bg-violet-500 text-right">Delete</button>
                                 </form>
                             </td>
                         </tr>
