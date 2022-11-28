@@ -10,10 +10,10 @@
 <body class="font-bold font-sans">
     <div class="flex flex-col w-screen h-screen">
         <nav class="flex bg-violet-500 px-4 py-2 shadow-lg">
-            <div class="mr-auto my-auto text-2xl">
+            <a href="/home" class="mr-auto my-auto text-2xl">
                 <p class="inline-block text-white">ENTRA</p>
                 <p class="inline-block text-emerald-400">SAI</p>
-            </div>
+            </a>
             <a href="logout">
                 @csrf
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23  " stroke-width="2" stroke="currentColor" class="w-8 h-8 ml-auto text-white">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="flex flex-col md:flex-row gap-x-8 gap-y-2 font-semibold">
                                 <input type="submit" value="Enviar" class="grow py-1 md:py-2 bg-slate-400 rounded-sm text-white">
-                                <a href="/home" class="grow py-1 md:py-2 border-2 border-slate-400 rounded-sm text-center">Voltar</a>
+                                <a href="/delays" class="grow py-1 md:py-2 border-2 border-slate-400 rounded-sm text-center">Voltar</a>
                             </div>
                         </div>
                     </form>

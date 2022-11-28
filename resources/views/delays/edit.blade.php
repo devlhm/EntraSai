@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Company Form - Laravel 9 CRUD Tutorial</title>
     @vite('resources/css/app.css')
 </head>
 <body class="font-bold font-sans">
     <div class="flex flex-col w-screen h-screen">
         <nav class="flex bg-violet-500 px-4 py-2 shadow-lg">
-            <div class="mr-auto my-auto text-2xl">
+            <a href="/home" class="mr-auto my-auto text-2xl">
                 <p class="inline-block text-white">ENTRA</p>
                 <p class="inline-block text-emerald-400">SAI</p>
-            </div>
+            </a>
             <a href="logout">
                 @csrf
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23  " stroke-width="2" stroke="currentColor" class="w-8 h-8 ml-auto text-white">
@@ -30,7 +31,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-1/2 h-1/2 mx-auto text-slate-400">
                                 <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd" />
                             </svg>
-                            <h1 class="w-fit mx-auto text-xl lg:text-2xl">Registrar Atraso</h1>
+                            <h1 class="w-fit mx-auto text-xl lg:text-2xl">Editar Atraso</h1>
                         </div>
                         <div class="flex flex-col my-auto gap-y-12 lg:gap-y-20 font-normal text-lg lg:text-lg">
                             <div class="lg:w-full flex flex-col lg:flex-row gap-8">

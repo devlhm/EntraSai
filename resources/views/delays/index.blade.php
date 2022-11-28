@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel 9 CRUD Tutorial Example</title>
     @vite('resources/css/app.css')
 </head>
-
 <body class="flex flex-col w-screen h-screen font-bold font-sans">
     <nav class="flex w-full bg-violet-500 px-4 py-2">
-        <div class="mr-auto my-auto text-4xl">
+        <a href="/home" class="mr-auto my-auto text-2xl">
             <p class="inline-block text-white">ENTRA</p>
             <p class="inline-block text-emerald-400">SAI</p>
-        </div>
+        </a>
         <button>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23  " stroke-width="2" stroke="currentColor" class="w-12 h-12 ml-auto text-white">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -22,7 +22,6 @@
     <div class="flex flex-col gap-y-5 w-11/12 mx-auto bg-violet-500 text-white">
         <div class="flex flex-col px-4 py-2 bg-violet-400">
             <h2 class="text-4xl">Atrasos</h2>
-            <a class="font-semibold text-2xl" href="{{ route('delays.create') }}">Registrar Atraso</a>
         </div>
         <div class="px-4 py-2 bg-violet-400">
             <form class="flex flex-col gap-y-2 mt-5 w-fit font-semibold" method="GET">
@@ -32,6 +31,9 @@
                         placeholder="Nome do aluno..." value="{{ $filter }}">
                 </div>
                 <input type="submit" value="Pesquisar" class="bg-emerald-400 text-xl">
+                <div class="w-full bg-violet-500 font-semibold text-xl text-center">
+                    <a href="{{ route('delays.create') }}">Registrar Atraso</a>
+                </div>
             </form>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -52,19 +54,19 @@
                 <tbody>
                     @foreach ($delays as $delay)
                         <tr class="divide-x-4 divide-violet-400 font-semibold bg-white text-black text-center">
-                            <td class="hidden lg:block">{{ $delay->student_rm }}</td>
-                            <td>{{ $delay->student->name }}</td>
-                            <td class="hidden lg:block">{{ $delay->student->schoolClass->module . ' ' . $delay->student->schoolClass->habilitation . ' ' . $delay->student->schoolClass->period }}
+                            <td class="hidden lg:block overflow-clip">{{ $delay->student_rm }}</td>
+                            <td class="overflow-x-scroll">{{ $delay->student->name }}</td>
+                            <td class="hidden lg:block overflow-clip">{{ $delay->student->schoolClass->module . ' ' . $delay->student->schoolClass->habilitation . ' ' . $delay->student->schoolClass->period }}
                             </td>
-                            <td>{{ $delay->arrival_time }}</td>
-                            <td>{{ $delay->reason }}</td>
-                            <td>
-                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST" class="relative w-full text-white">
-                                    <a class="absolute w-2/3 h-full px-4 border-b-[28px] border-r-[60px] border-b-0 border-emerald-400 border-r-transparent bg-trnasparent text-left" href="{{ route('delays.edit', $delay->id) }}">Edit</a>
+                            <td class="overflow-x-scroll">{{ $delay->arrival_time }}</td>
+                            <td class="overflow-x-scroll">{{ $delay->reason }}</td>
+                            <td class="p-0 overflow-x-scroll">
+                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST" class="relative flex flex-col w-full text-white">
+                                    <a class="static w-full h-full px-4 border-r-transparent bg-emerald-400 text-center" href="{{ route('delays.edit', $delay->id) }}">Edit</a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        onclick="return confirm('Você tem certeza?')"class="w-full px-4 bg-violet-500 text-right">Delete</button>
+                                        onclick="return confirm('Você tem certeza?')" class="w-full px-4 bg-violet-500 text-center">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -76,5 +78,4 @@
             </div>
         </div>
 </body>
-
 </html>
