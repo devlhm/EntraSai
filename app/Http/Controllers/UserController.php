@@ -35,15 +35,18 @@ class UserController extends Controller
     public function create(Request $request) {
 
         $credentials = $request->validate([
+            'id' => ['required', 'min:5'],
             'username' => ['required'],
             'password' => ['required', 'min:8']
         ]);
 
         $user = new User();
-        $user->username = $credentials['username'];
+        $user->id = $credentials['id'];
+        $user->full_name = $credentials['username'];
         $user->password = Hash::make($credentials['password']);
+        $user->role_id = 0;
         $user->save();
-        return "User created";
+        return redirect('/');
     }
 
     public function logout(Request $request) {

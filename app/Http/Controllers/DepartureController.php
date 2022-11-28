@@ -16,15 +16,15 @@ class DepartureController extends Controller
     public function index()
     {
         $filter = request()->query('filter');
-        $delays = null;
+        $departures = null;
 
         if (!empty($filter)) {
 
-            $delays = Departure::whereHas('student', function ($q) use ($filter) {
+            $departures = Departure::whereHas('student', function ($q) use ($filter) {
                 $q->where('name', 'like', '%' . $filter . '%');
             })->paginate(10);
         } else {
-            $delays = Departure::sortable()->paginate(10);
+            $departures = Departure::sortable()->paginate(10);
         }   
 
         return view('departures.index', compact('departures'))->with('filter', $filter);

@@ -9,17 +9,16 @@
 </head>
 <body class="font-bold font-sans">
     <div class="flex flex-col w-screen h-screen">
-        <nav class="flex bg-violet-500 px-4 py-2 shadow-lg">
+        <nav class="flex w-full bg-violet-500 px-4 py-2">
             <a href="/home" class="mr-auto my-auto text-2xl">
                 <p class="inline-block text-white">ENTRA</p>
                 <p class="inline-block text-emerald-400">SAI</p>
             </a>
-            <a href="logout">
-                @csrf
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23  " stroke-width="2" stroke="currentColor" class="w-8 h-8 ml-auto text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                </svg>
-            </a>
+            <a href="/logout">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23  " stroke-width="2" stroke="currentColor" class="w-12 h-12 ml-auto text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg> 
+            </a>    
         </nav>
         <div class="w-full h-full relative">
             <div class="absolute w-full h-full lg:px-32 py-16">
