@@ -81,7 +81,6 @@ class StudentController extends Controller
         $importer = new StudentsImport($studentSchoolClass->id);
 
         Excel::import($importer, $file);
-
         return back()->with(['success' => 'Alunos importados com sucesso!']);
     }
 
