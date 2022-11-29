@@ -28,7 +28,7 @@
                 <div>
                     <label for="filter" class="text-2xl">Filtro:</label>
                     <input type="text" class="px-1 text-xl text-black" id="filter" name="filter"
-                        placeholder="Nome do aluno..." value="{{ $filter }}">
+                        placeholder="RM do Aluno..." value="{{ $filter }}">
                 </div>
                 <input type="submit" value="Pesquisar" class="bg-emerald-400 text-xl">
                 <div class="w-full bg-violet-500 font-semibold text-xl text-center">

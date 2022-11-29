@@ -50,6 +50,8 @@
                                     <label for="student_rm" class="font-semibold">Nome: </label>
                                     <input type="text" name="username" class="px-2 md:px-4 py-1 md:py-2 border-2 border-slate-400 rounded-sm" />
                                 </div>
+                            </div>
+                            <div class="md:w-1/2 flex flex-col gap-y-10">
                                 <div class="relative flex flex-col">
                                     <label for="arrival_time" class="font-semibold">Senha: </label>
                                     <input type="password" name="password" class="px-2 md:px-4 py-1 md:py-2 border-2 border-slate-400 rounded-sm"/>
