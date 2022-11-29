@@ -33,7 +33,7 @@ class Entry extends Model
     protected function entryTime(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date_format(date_create($value), 'd/m/Y H:i:s'),
+            get: fn ($value) => date_format(date_create($value), 'Y-m-d\TH:i:s'),
             set: fn ($value) => date_format(date_create($value), 'Y-m-d H:i:s'),
         );
     }
@@ -41,7 +41,7 @@ class Entry extends Model
     protected function estimatedEntryTime(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date_format(date_create($value), 'd/m/Y H:i:s'),
+            get: fn ($value) => date_format(date_create($value), 'Y-m-d\TH:i:s'),
             set: fn ($value) => date_format(date_create($value), 'Y-m-d H:i:s'),
         );
     }

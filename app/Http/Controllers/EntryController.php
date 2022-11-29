@@ -49,7 +49,8 @@ class EntryController extends Controller
     {
         $request->validate([
             'student_rm' => 'required',
-            'entry_time' => ['required', 'after_or_equal:today'],
+            'entry_time' => 'required',
+            'estimated_entry_time' => ['required', 'after_or_equal:today'],
             'reason' => 'required'
         ]);
 
@@ -73,7 +74,7 @@ class EntryController extends Controller
     public function edit($id)
     {
         $entry = Entry::find($id);
-        return view('entry.edit', compact('entry'));
+        return view('entries.edit', compact('entry'));
     }
 
     /**
@@ -87,7 +88,8 @@ class EntryController extends Controller
     {
         $request->validate([
             'student_rm' => 'required',
-            'entry_time' => ['required', 'after_or_equal:today'],
+            'entry_time' => 'required',
+            'estimated_entry_time' => ['required', 'after_or_equal:today'],
             'reason' => 'required'
         ]);
 

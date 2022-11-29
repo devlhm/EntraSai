@@ -43,8 +43,8 @@
             <table class="w-full table-fixed mt-5 text-xl">
                 <thead>
                     <tr class="bg-violet-500 divide-x-4 divide-violet-400">
-                        <th class="hidden lg:block">RM do Aluno</th>
-                        <th>@sortablelink('arrival_time', 'Chegada Estimada')</th>
+                        <th>RM do Aluno</th>
+                        <th class="hidden lg:block">@sortablelink('arrival_time', 'Chegada Estimada')</th>
                         <th>@sortablelink('arrival_time', 'Hora de Chegada')</th>
                         <th class="hidden lg:block">Justificativa</th>
                         <th>Action</th>
@@ -52,13 +52,13 @@
                 </thead>
                 <tbody>
                     @foreach ($entries as $entry)
-                        <tr class="divide-x-4 divide-violet-400 font-semibold bg-white text-black text-center">
+                        <tr class="divide-x-4 divide-y-4 divide-violet-400 font-semibold bg-white text-black text-center">
                             <td class="hidden lg:block overflow-clip">{{ $entry->student_rm }}</td>
                             <td class="overflow-x-scroll">{{ $entry->estimated_entry_time }}</td>
                             <td class="overflow-x-scroll">{{ $entry->entry_time }}</td>
                             <td class="overflow-x-scroll">{{ $entry->reason }}</td>
                             <td class="p-0 overflow-x-scroll">
-                                <form action="{{ route('delays.destroy', $delay->id) }}" method="POST" class="relative flex flex-col w-full text-white">
+                                <form action="{{ route('entries.destroy', $entry->id) }}" method="POST" class="relative flex flex-col w-full text-white">
                                     <a class="static w-full h-full px-4 border-r-transparent bg-emerald-400 text-center" href="{{ route('entries.edit', $entry->id) }}">Edit</a>
                                     @csrf
                                     @method('DELETE')
